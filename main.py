@@ -166,6 +166,53 @@ def borrow_book():
         log_output(f"❌ Error: {str(e)}", "red")
 
 
+def open_borrow_dialog():
+    """Open a dialog to borrow a book"""
+    dialog = tk.Toplevel(root)
+    dialog.title("Borrow Book")
+    dialog.geometry("400x250")
+    dialog.resizable(False, False)
+    
+    # Member ID
+    tk.Label(dialog, text="Member ID:", font=("Arial", 10)).pack(pady=5)
+    member_entry = tk.Entry(dialog, width=40)
+    member_entry.pack(pady=5)
+    
+    # Book ID
+    tk.Label(dialog, text="Book ID:", font=("Arial", 10)).pack(pady=5)
+    book_id_entry = tk.Entry(dialog, width=40)
+    book_id_entry.pack(pady=5)
+    
+    # Book Name (optional - for reference)
+    tk.Label(dialog, text="Book Name (optional, for reference):", font=("Arial", 10)).pack(pady=5)
+    book_name_entry = tk.Entry(dialog, width=40)
+    book_name_entry.pack(pady=5)
+    
+    # ISBN (optional - for reference)
+    tk.Label(dialog, text="ISBN (optional, for reference):", font=("Arial", 10)).pack(pady=5)
+    isbn_entry = tk.Entry(dialog, width=40)
+    isbn_entry.pack(pady=5)
+    
+    def borrow():
+        member_id = member_entry.get().strip()
+        book_id = book_id_entry.get().strip()
+        
+        if not member_id or not book_id:
+            messagebox.showerror("Error", "Member ID and Book ID are required")
+            return
+        
+        try:
+            book_collection.borrow_book(book_id, member_id)
+            clear_output()
+            log_output(f"✅ Book '{book_id}' borrowed by member '{member_id}'", "green")
+            dialog.destroy()
+        except (KeyError, ValueError) as e:
+            messagebox.showerror("Error", str(e))
+    
+    tk.Button(dialog, text="Borrow Book", command=borrow, bg="#9C27B0", fg="white", width=20).pack(pady=10)
+    tk.Button(dialog, text="Cancel", command=dialog.destroy, bg="#757575", fg="white", width=20).pack(pady=5)
+
+
 def return_book():
     book_id = entry_book_id.get().strip()
     
@@ -281,7 +328,7 @@ tk.Button(book_button_frame, text="Find Book", command=find_book, bg="#FF9800", 
 borrow_label = tk.Label(book_button_frame, text="Book ID:", fg="#333")
 borrow_label.pack(side=tk.LEFT, padx=5, pady=5)
 
-tk.Button(book_button_frame, text="Borrow Book", command=borrow_book, bg="#9C27B0", fg="white", width=12).pack(side=tk.LEFT, padx=3, pady=5)
+tk.Button(book_button_frame, text="Borrow Book", command=open_borrow_dialog, bg="#9C27B0", fg="white", width=12).pack(side=tk.LEFT, padx=3, pady=5)
 tk.Button(book_button_frame, text="Return Book", command=return_book, bg="#00BCD4", fg="white", width=12).pack(side=tk.LEFT, padx=3, pady=5)
 tk.Button(book_button_frame, text="Remove Book", command=remove_book, bg="#f44336", fg="white", width=12).pack(side=tk.LEFT, padx=3, pady=5)
 

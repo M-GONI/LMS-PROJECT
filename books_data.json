@@ -1,0 +1,10 @@
+[
+    {
+        "book_id": "099",
+        "title": "swe  construction",
+        "author": "engr nigga",
+        "isbn": "####",
+        "is_borrowed": false,
+        "borrowed_by": null
+    }
+]
