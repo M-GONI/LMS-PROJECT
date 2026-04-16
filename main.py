@@ -170,7 +170,7 @@ def open_borrow_dialog():
     """Open a dialog to borrow a book"""
     dialog = tk.Toplevel(root)
     dialog.title("Borrow Book")
-    dialog.geometry("400x250")
+    dialog.geometry("400x400")
     dialog.resizable(False, False)
     
     # Member ID
