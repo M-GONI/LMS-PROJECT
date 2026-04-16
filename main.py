@@ -1,5 +1,5 @@
-from models.member import Member
-from models.member_collection import MemberCollection
+from src.models.member import Member
+from src.models.member_collection import MemberCollection
 
 
 def main():
