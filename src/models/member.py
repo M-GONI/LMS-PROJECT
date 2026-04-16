@@ -15,6 +15,9 @@ class Member:
     def get_member_id(self):
         return self._member_id
 
+    def get_email(self):
+        return self._email
+
     def borrow_book(self, book):
         if len(self._borrowed_books) >= 5:
             return False
